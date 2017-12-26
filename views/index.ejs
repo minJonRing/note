@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>&#x270d web个人日记</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <script src="/javascripts/index.js"></script>
+  </head>
+  <body>
+    <div class="container relative h100">
+      <div class="note-left bg-white">
+        <div class="note-bg"></div>
+        <div class="note-head text-center">
+          <a class="note-user inline-block border border-color-white border-radius-50 overflow" href="/"></a>
+          <h1 class="note-author font-normal p2 f24">JonRing</h1>
+          <p class="note-state f14 line16">I succeeded because i willed it; i never hesitated</p>
+          <div class="note-list line20 text-center letter-1 ">
+            <a class="inline-block w100 f30 color-black" href="javascript:">&#x2745</a>
+            <a class="inline-block w100 color-orange" href="javascript:">前段</a>
+            <a class="inline-block w100 color-blue" href="javascript:">数据库</a>
+            <a class="inline-block w100 color-333" href="javascript:">node</a>
+            <a class="inline-block w100 color-red" href="javascript:">spa</a>
+            <a class="inline-block w100 color-green" href="javascript:">其他</a>
+          </div>
+        </div>
+        <div class="note-link">
+        </div>
+      </div>
+      <div class="note-mid overflows overflow"> 
+        <div class="note-slide flex" style="width:200%">
+          <div class="w100">
+            <div class="note-article-box w100">
+            
+            </div>
+            <div class="page-box bg-white border-radius-5 text-center">
+              
+            </div>
+          </div>
+          <div class="note-article-details wh100 relative">
+            <a class="close color-red absolute f14" href="javascript:">&#x2718</a>
+            <div class="note-article-details-box">
+              
+            </div>
+          </div>
+        </div>  
+      </div>
+    </div>
+  </body>
+  <script>
+    let G_data = {
+      viewData:'',
+      pageData:'',
+      page:0,
+      filter:''
+    }
+
+    // 监听数据变化
+    watch(G_data, 'viewData', '', function(){
+    })
+
+    // 分页索引变化
+    watch(G_data, 'page', 0, function(val){
+      document.documentElement.scrollTop = document.body.scrollTop =0;
+      G_data.pageData = G_data.viewData.slice(10*val,10*(val+1));
+    })
+
+    //分页后页面数据变化 
+    watch(G_data, 'pageData', '', function(val){
+      $('.note-article-box').innerHTML = drawDom(G_data.pageData)
+      sildes()
+    })
+
+    // 筛选后页面变化
+    watch(G_data, 'filter', '', function(val){
+      G_data.pageData = val;
+      pages(Math.ceil(G_data.pageData.length/10))
+    })
+    // 绘制文章列表
+    function drawDom(data){
+      let html='',index=0;
+      for(i of data){
+        let cla = Math.ceil(Math.random()*10);
+        html += `<div class="note-article bg-white border-radius-5 relative overflow">
+                  <div class="note-article-title p-top-18 p-bottom-18 flex flex-mid">
+                    <a class="link-info flex-1 f22 font-normal color-333" href="javascript:" data-index="${index}">${i.title}</a>
+                    <time class="flex-0 p-left-12 p-right-12 color-999" datetime="">${i.create_date.replace(/(T.+)/g,'')}</time>
+                  </div>
+                  <div class="note-article-content p-top-18 p-bottom-18 f16 line16">
+                    <textarea class="w100 color-666 f16" style="resize:none" name="foreword" rows="" cols="">${i.foreword}</textarea> 
+                  </div>
+                  <div class="note-article-tag p-top-18 p-bottom-18 flex f12 border-top border-color-999">
+                    <div class="note-article-tag-a flex-0 flex flex-mid">
+                      ${drawTag(i.tag)}
+                    </div>
+                    <div class="note-article-tag-a note-article-tag-classify flex-0">
+                      <a class="relative color-white" href="/">${i.classify}</a>
+                    </div>
+                    <div class="note-article-tag-more flex-1 text-right">
+                      <a class="link-info inline-block color-white color-${cla}" href="javascript:" data-index="${index}">more &#xbb</a>
+                    </div>
+                  </div>
+                </div>`;
+                index++
+      }
+      return html;
+    }
+
+    // 给每个跳转详情按钮添加事件
+    function sildes(){
+      for(i of [...a('.link-info')]){
+        i.addEventListener('click',async function(){
+          document.documentElement.scrollTop = document.body.scrollTop =0;
+          // 给详情页面填充内容
+          $('.note-article-details-box').innerHTML = drawInfo(G_data.pageData[this.getAttribute('data-index')])
+          // 获取滑动的距离
+          let w = -getStyle($('.note-slide'),'width')/2;
+          // 设置目标元素的transform
+          $('.note-slide').style.transform = 'matrix(1, 0, 0, 1, '+w+', 0)'
+        })
+      }
+    }
+
+    // 绘制详情页
+    function drawInfo(data){
+      let html = '';
+      html += `<div class="note-article-detail bg-white border-radius-5 color-666 f16">
+                <h2 class="font-normal">${data.title}</h2>
+                <textarea class="w100 f16 color-666" rows="" cols="">${data.foreword}</textarea>
+                <div class="w100">${data.content}</div>
+              </div>`;
+      return  html;
+    }
+
+    // 获取文章数据
+    ajax({url:'/get/article',method:'POST'}).then(res=>{
+      G_data.viewData = JSON.parse(res).code;
+      G_data.pageData = G_data.viewData.slice(0,10);
+      pages(Math.ceil(G_data.viewData.length/10))
+    })
+
+    //关闭详情页
+    $('.close').addEventListener('click',()=>{
+        $('.note-slide').style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
+        setTimeout(()=>{
+          $('.note-article-details-box').innerHTML= "";
+        },600)
+    })
+
+    // 遍历生成标签
+
+    function drawTag(data){
+      let html ='';
+      for(j of data){
+        let cla = Math.ceil(Math.random()*10)
+        html+=`<a class="color-${cla} relative flex flex-mid" href="/">${j}</a>`
+      }
+      return html
+    }
+
+    // 分页器
+    function pages(num){
+        let html = ''
+        for(let i = 0;i<num;i++){
+            html += `<div class="nav-item inline-block relative m-right-12 border-radius-5">
+                      <input class="absolute wh100" type="radio" ${i==0?'checked':''} data-num="${i}" name='page'/>
+                      <a class="inline-block btn color-blue transition-duration-600"  href="javascript:">${i+1}</a>
+                    </div>`;
+        }
+        $('.page-box').innerHTML = html; 
+        _click(a('.nav-item input[type=radio]'),'change',function(obj){
+          if(obj.checked){
+            G_data.page = obj.getAttribute('data-num');
+          }
+        })
+    }
+
+    // 分类
+    _click(a('.note-list a'),'click',function(obj){
+      if(obj.computedName == '❅'){
+        G_data.filter = G_data.viewData;
+        return ;
+      }
+      let arr = [].concat(G_data.viewData)
+      G_data.filter = arr.filter(function(el,i){
+        return el.classify == obj.computedName;
+      })
+    })
+    //
+  </script>
+</html>

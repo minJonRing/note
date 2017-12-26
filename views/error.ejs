@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>404</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="javascripts/index.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        
+        .absolute {
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body class="overflow">
+    <img class="block w100" alt="">
+    <div class="absolute text-center">
+        <p class="f30 color-orange">404</p>
+        <a class="color-blue p-top-18" href="/">首页</a>
+    </div>
+</body>
+<script>
+    $('img').setAttribute('src', `/images/40${Math.ceil(Math.random()*9)}.jpg`)
+</script>
+
+</html>

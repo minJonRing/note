@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>&#x270d 上传文章</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/user.css' />
+    <script type="text/javascript" src='/javascripts/index.js'></script>
+    <script type="text/javascript" src="/updata/release/wangEditor.js"></script>
+    <style>
+        input[type=checkbox]+span,
+        input[type=radio]+span {
+            transition-duration: 300ms;
+            cursor: pointer;
+        }
+        
+        input[type=checkbox]:checked+span,
+        input[type=radio]:checked+span {
+            background-color: orange;
+            color: #fff;
+        }
+        
+        .editor-left input[name=tag] {
+            opacity: 0;
+        }
+        
+        .editor-left input[name=tag]:checked+a {
+            background-color: deepskyblue;
+            color: #fff;
+        }
+        .nav-item {
+
+        }
+        rect {
+            -webkit-transition: stroke-dasharray .25s;
+            transition: stroke-dasharray .25s;
+        }
+    </style>
+</head>
+
+<body class="">
+    <div class="editor flex flex-top">
+        <div class="editor-left h100 p2 border-right border-color-orange">
+            <div class="relative m-bottom-12">
+                <input class="absolute wh100" type="radio" checked name="tag" id="" data-type="list">
+                <a class="inline-block p1 color-green w100 btn transition-duration-600" href="javascript:">文章列表</a>
+            </div>
+            <div class="relative m-bottom-12">
+                <input class="absolute wh100" type="radio" name="tag" id="" data-type="add">
+                <a class="inline-block p1 color-orange w100 btn transition-duration-600" href="javascript:">新增文章</a>
+            </div>
+            <div class="relative m-bottom-12">
+                <a class="inline-block p1 color-green w100 btn transition-duration-600" href="/">回到主页</a>
+            </div>
+        </div>
+        <div class="editor-mid overflow">
+            <div class="editor-mid-box transition-duration-600 overflow flex flex-top ">
+                <div class="editor-mid-item w100 relative">
+                    <div style="height:600px">
+                        <table class="w100">
+                            <thead>
+                                <tr class="color-666">
+                                    <th style="width:80px">序号</th>
+                                    <th>分类</th>
+                                    <th>标题</th>
+                                    <th>
+                                        <span>更新时间<span>&#x2794;
+                                        <a class="rank color-blue" data-bl='0' href="javascript:">升序</a>
+                                        <a class="rank color-green" data-bl='1' href="javascript:">降序</a>
+                                    </th>
+                                    <th style="width:200px">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center"></tbody>
+                        </table>
+                    </div>    
+                    <div class="nav text-center absolute w100">
+                        
+                    </div>
+                </div>
+                <div class="editor-mid-item editor-mid-1 w100">
+                    <div class="return p-bottom-12 m-bottom-12 border-bottom border-color-999" style="display:none">
+                        <a class="inline-block btn color-blue " href="javascript:">返回列表</a>
+                    </div>
+                    <form>
+                        <div class="input-box p-top-12 p-bottom-12">
+                            <label class="flex flex-top" for="title">
+                                <span class="p1">标题:</span>
+                                <input class="flex-1 btn" type="text" name="title" value="" enter="/\d{0,9}?/">
+                            </label>
+                        </div>
+                        <div class="input-box p-top-12 p-bottom-12">
+                            <label class="flex flex-top" for="foreword">
+                                <span class="p1">前言:</span>
+                                <textarea class="flex-1 btn" style="resize:none" name="foreword" rows="5" cols=""></textarea> 
+                            </label>
+                        </div>
+                        <div class="input-box p-top-12 p-bottom-12 flex flex-mid">
+                            <span class="p1">标签:</span>
+                            <label class="flex flex-mid relative overflow m-right-12" for="html">
+                                <input class="absolute" type="checkbox" name="html" id="html" value="html/css" style="display:none"> 
+                                <span class="btn">html/css</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="js">
+                                <input class="absolute" type="checkbox" name="js" id="js" value="js" style="display:none"> 
+                                <span class="btn">js</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="ts">
+                                <input class="absolute" type="checkbox" name="ts" id="ts" value="ts" style="display:none"> 
+                                <span class="btn">ts</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="nosql">
+                                <input class="absolute" type="checkbox" name="nosql" id="nosql" value="nosql" style="display:none"> 
+                                <span class="btn">nosql</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="mysql">
+                                <input class="absolute" type="checkbox" name="mysql" id="mysql" value="mysql" style="display:none"> 
+                                <span class="btn">mysql</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="vue">
+                                <input class="absolute" type="checkbox" name="vue" id="vue" value="vue" style="display:none"> 
+                                <span class="btn">vue</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="react">
+                                <input class="absolute" type="checkbox" name="react" id="react" value="react" style="display:none"> 
+                                <span class="btn">react</span>                
+                            </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="rest">
+                                <input class="absolute" type="checkbox" name="rest" id="rest" value="rest" style="display:none"> 
+                                <span class="btn">rest</span>                
+                            </label>
+                        </div>
+                        <div class="input-box p-top-12 p-bottom-12 flex flex-mid">
+                            <span class="p1">分类:</span>
+                            <label class="flex flex-mid relative overflow m-right-12" for="web">
+                                        <input class="absolute" type="radio" name="classify" id="web" value="前段" style="display:none"> 
+                                        <span class="btn">前段</span>                
+                                    </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="sql">
+                                        <input class="absolute" type="radio" name="classify" id="sql" value="数据库" style="display:none"> 
+                                        <span class="btn">数据库</span>                
+                                    </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="node">
+                                        <input class="absolute" type="radio" name="classify" id="node" value="node" style="display:none"> 
+                                        <span class="btn">node</span>                
+                                    </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="spa">
+                                        <input class="absolute" type="radio" name="classify" id="spa" value="spa" style="display:none"> 
+                                        <span class="btn">spa</span>                
+                                    </label>
+                            <label class="flex flex-mid relative overflow m-right-12" for="rests">
+                                <input class="absolute" type="radio" name="classify" id="rests" value="其他" style="display:none"> 
+                                <span class="btn">其他</span>                
+                            </label>
+                        </div>
+                    </form>
+                    <div id="editor">
+
+                    </div>
+                    <div class="text-right f14">
+                        <a class='clear inline-block btn color-red m-top-12' href="javascript:">ClearData</a>
+                        <a class='updata inline-block btn color-blue m-top-12' href="javascript:" style="display:none">Updata</a>
+                        <a class="inline-block btn btn-success m-top-12 color-green" href="javascript:">Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hint bg-white text-center line20">
+        
+    </div>
+</body>
+<script type="text/javascript">
+    let updataId,hint = $('.hint-svg'); 
+
+    // 获取所有的标签 并返回一个数组
+    function setTags(){
+        let arr =[];
+        for(i of [...a('input[name=tag]')]){
+            arr.push(i.getAttribute('data-type'))
+        }
+        return arr;
+    }
+
+    // 绘制文章列表
+    function drawTbody(data,imit = 0){
+        let html = ``;
+        let _data = [].concat(data).splice(10*imit,10);
+        for(i in _data){
+            let j = i-0 +10*imit;
+            html +=` <tr data-id="${_data[i]._id}">
+                        <td>${j}</td>
+                        <td>${_data[i].classify}</td>
+                        <td>${_data[i].title}</td>
+                        <td>${_data[i].create_date.replace(/(T.+)/g,'')}</td>
+                        <td class="flex flex-mid flex-center-2 f12">
+                            <a class="edit btn color-green m-right-12" href="javascript:" data-index="${j}" title="编辑">UPDATA</a>
+                            <a class="remove btn color-red" href="javascript:" data-index="${j}" title="删除">REMOVE</a>
+                        </td>
+                    </tr>`
+        }
+        return html;
+    }
+
+
+    function rank(data,rank = '1'){
+        let arr = data.sort(function(x,y){
+            let Old = new Date(x.create_date);
+            let New = new Date(y.create_date);
+            if(rank == '1'){
+                return Old < New?1:-1;
+            }else{
+                return Old > New?1:-1;
+            }
+            
+        })
+        return arr;
+    }
+
+    // 获取所有文章的数据
+    function getAllArticle(){
+        ajax({url:'/get/article',method:'POST'}).then(res=>{
+            G_data.viewData = JSON.parse(res).code;
+        })
+    }
+    getAllArticle()
+    // 设置初始化数据
+    let G_data = {
+        tags:setTags(),
+        tag:'',
+        w:document.body.clientWidth - 280,  //设置单次滑动的距离
+        viewData:'',
+        switchover:false
+    }
+
+    // 监听tag数据的改变
+    watch(G_data,'tag','',function(val){
+        let index;
+        for(i in G_data.tags){
+            if(val == G_data.tags[i]){
+                index = i;
+                break;
+            }
+        }
+        $('.editor-mid-box').style.transform = `matrix(1,0,0,1,-${G_data.w * index},0)`
+    })
+
+    // 监听文章列表数据viewData的改变
+    watch(G_data,'viewData','',function(val){
+        $('table tbody').innerHTML = drawTbody(val)
+        // 点击编辑按钮 弹出编辑页面
+        _click(a('.edit'),'click',function(obj){
+            updataId = obj.parentNode.parentNode.getAttribute('data-id');
+            setData(obj)
+            switchover(G_data.w * 1)
+        })
+        //点击删除 删除文章
+        _click(a('.remove'),'click',function(obj){
+            removeArticle(obj)
+        })
+        //添加分页器
+        let nav_num = Math.ceil(G_data.viewData.length / 10)
+        pages(nav_num)
+        
+    })
+    // 监听switchover数据变换
+    watch(G_data,'switchover','',function(val){
+        if(val){
+            $('.return').style.display = 'block';
+            $('.updata').style.display = 'inline-block';
+            $('.btn-success').style.display = 'none';
+        }else{
+            $('.return').style.display = 'none';
+             $('.updata').style.display = 'none';
+            $('.btn-success').style.display = 'inline-block';             
+            removeData()
+        }
+    })
+    // 删除文章
+    function removeArticle(obj){
+        let parent = obj.parentNode.parentNode;
+        let index = obj.getAttribute('data-index');
+        let arr = [].concat(G_data.viewData);
+        let _id = parent.getAttribute('data-id')
+        let form = new FormData();
+        form.append('_id',_id)
+        ajax({
+            url: '/remove',
+            method: 'POST',
+            data: form
+        }).then(res => {
+            classAction({obj:$('.hint'),class:'successhint',text:'删除成功'})
+            parent.classList.add('hide-transtion');
+            setTimeout(()=>{
+                parent.parentNode.removeChild(parent);
+                arr.splice(index,1);
+                G_data.viewData = arr;
+            },600)
+        }).catch(err=>{
+            classAction({obj:$('.hint'),class:'errorhint',text:'删除失败'})
+        })
+    }
+
+    //编辑|更新内容 渲染数据
+    function setData(obj){
+        let index = obj.getAttribute('data-index');
+        let db = G_data.viewData[index]
+        let str = db.tag.join(',');
+        $('form input[name=title]').value = db.title;
+        $('form textarea[name=foreword]').value = db.foreword;
+        for(i of [...a('form input[type=checkbox]')]){
+            let reg = new RegExp(i.getAttribute('name'))
+            if(reg.test(str)){
+                i.checked = true;
+            }
+        }
+        let reg = new RegExp(db.classify);
+        for(i of [...a('form input[type=radio]')]){
+            if(reg.test(i.getAttribute('value'))){
+                i.checked  =true;
+            }
+        }
+        editor.txt.html(db.content)
+        G_data.switchover = true;
+    } 
+    
+    // 富文本编辑器
+    var E = window.wangEditor //使用编辑器
+    var editor = new E('#editor') //创建编辑器对象
+    editor.customConfig.uploadImgServer = '/upload/img'; //上传地址路由
+    editor.customConfig.uploadFileName = 'imgs' //后端后去的name名称
+    editor.create() //wangEditor使用formData上传
+
+    let tags = [], //放置上传的tags集合
+        cla; //放置上传的分类数据
+
+    //数据提交 添加文章
+    $('.btn-success').addEventListener('click', async() => {
+        let title = $('input[name=title]').value;
+        let foreword = $('textarea[name=foreword]').value;
+        let content = editor.txt.html();
+        let tag = tags;
+        let classify = cla;
+        let data = {
+            title: title,
+            foreword: foreword,
+            content: content,
+            tag: tag,
+            classify: classify
+        }
+        if(!title || !foreword || !content || !tag || !classify){
+            classAction({obj:$('.hint'),class:'errorhint',text:'数据不能为空!'})
+            return ;
+        }
+        let form = new FormData();
+        form.append('data', JSON.stringify(data))
+        ajax({
+            url: '/opload/article',
+            method: 'POST',
+            data: form
+        }).then(res => {
+            classAction({obj:$('.hint'),class:'successhint',text:'上传成功'})
+        }).catch(err=>{
+            classAction({obj:$('.hint'),class:'errorhint',text:'上传失败'})
+        })
+    })
+    // 更新文章
+    $('.updata').addEventListener('click', async() => {
+        let title = $('input[name=title]').value;
+        let foreword = $('textarea[name=foreword]').value;
+        let content = editor.txt.html();
+        let tag = tags;
+        let classify = cla;
+        let data = {
+            title: title,
+            foreword: foreword,
+            content: content,
+            tag: tag,
+            classify: classify
+        }
+        let form = new FormData();
+        form.append('_id', updataId)
+        form.append('data', JSON.stringify(data))
+        ajax({
+            url: '/updata',
+            method: 'POST',
+            data: form
+        }).then(res => {
+            classAction({obj:$('.hint'),class:'successhint',text:'更新成功'})
+            getAllArticle()
+        })
+    })
+    // 新增文字 获取tag标签
+    for (i of[...a('input[type=checkbox]')]) {
+        i.addEventListener('change', function() {
+            if (this.checked) {
+                tags.push(this.value)
+            } else {
+                tags.forEach((el, index) => {
+                    if (el == this.value) {
+                        tags.splice(index, 1)
+                    }
+                })
+            }
+        })
+    }
+    // 新增文章获取classify标签
+    for (i of[...a('input[name=classify]')]) {
+        i.addEventListener('change', function() {
+            if (this.checked) {
+                cla = this.value;
+            }
+        })
+    }
+
+    // 切换选显卡
+    for(i of [...a('input[name=tag]')]){
+        i.addEventListener('change',function(){
+            if(this.checked){
+                G_data.tag = this.getAttribute('data-type')
+                G_data.switchover = false;
+            }
+        })
+    }
+
+    // 按时间升降序
+    _click(a('.rank'),'click',function(obj){
+        G_data.viewData = [].concat(rank(G_data.viewData,obj.getAttribute('data-bl')))
+    })
+
+    // 切换模块
+    function switchover(i){
+        $('.editor-mid-box').style.transform = `matrix(1,0,0,1,-${i},0)`
+    }
+
+    //从编辑|更新页面返回列表
+    $('.return').addEventListener('click',function(){
+        switchover(0)
+    }) 
+    // 清除文章 列表按钮
+    $('.clear').addEventListener('click',function(){
+        removeData()
+    })
+    // 清除文章列表的数据函数
+    function removeData(){
+        $('input[name=title]').value = '';
+        $('textarea[name=foreword]').value = '';
+        editor.txt.html('');
+        for (i of[...a('form input[type=checkbox]')]) {
+            i.checked = false;
+        }
+        for (i of[...a('form input[type=radio]')]) {
+            i.checked = false;
+        }
+    }
+
+    // 分页器
+    function pages(num){
+        let html = ''
+        for(let i = 0;i<num;i++){
+            html += `<div class="nav-item inline-block relative m-right-12 border-radius-5">
+                            <input class="absolute wh100" type="radio" ${i==0?'checked':''} data-num="${i}" name='page'/>
+                            <a class="inline-block btn color-blue transition-duration-600"  href="javascript:">${i+1}</a>
+                            </div>`;
+        }
+        $('.nav').innerHTML = html;
+        _click(a('.nav-item input'),'click',function(obj){
+            $('table tbody').innerHTML =  drawTbody(G_data.viewData,obj.getAttribute('data-num'))
+        })
+    }
+
+    // 设置属性
+    function setAttr(option){
+        let obj = option.obj || null;
+        let attr = option.attr;
+        for(i in attr){
+            obj.setAttribute(i,attr[i])
+        }
+        return obj
+    }
+    // 提示信息显示
+    function SHhint(option){
+        let text = option.text;
+        let svg = option.svg;
+        setAttr({obj:$('.hint span'),attr:text}).innerHTML = option.value
+        setAttr({obj:$('.hint .hint-svg'),attr:svg})
+    }
+    let narr = [];
+    narr[0] = 1;
+    narr[1] = 2;
+    narr['t'] = 1;
+    narr['q'] = 1;
+    narr['r'] = 1;
+    ajax({url:"/tqr",data:narr,method:"POST"}).then((res)=>{
+        console.log(JSON.stringify(res))
+    })
+</script>
+
+</html>

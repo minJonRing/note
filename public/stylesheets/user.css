@@ -1,0 +1,115 @@
+.editor-left {
+    position: fixed;
+    width: 280px;
+    top: 0;
+    left: 0;
+    min-height: 100%;
+    background-color: #fff;
+    z-index: 9;
+}
+
+.editor-mid {
+    position: absolute;
+    top: 0;
+    left: 280px;
+    width: calc(100% - 280px);
+    min-height: 100%;
+}
+
+.editor-mid-box {
+    width: 200%;
+    min-height: 100%;
+    background-color: #ddd;
+}
+
+.editor-mid-item {
+    min-height: 100%;
+    background-color: #fff;
+    margin: 18px;
+    padding: 18px;
+    border-radius: 5px;
+}
+
+
+/* 列表 */
+
+table {
+    border-top: 1px orange solid;
+    border-right: 1px orange solid;
+}
+
+table th,
+table td {
+    padding: 6px 12px;
+}
+
+table th,
+table td {
+    border-bottom: 1px orange solid;
+    border-left: 1px orange solid;
+}
+
+
+/* 过渡 */
+
+.hide-transtion {
+    animation: hideTranstion 600ms linear forwards;
+}
+
+@keyframes hideTranstion {
+    0% {
+        transform: matrix(1, 0, 0, 1, 0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: matrix(.9, 0, 0, .9, -100, 0);
+        opacity: 0;
+    }
+}
+
+.nav {
+    bottom: 18px;
+}
+
+.nav .nav-item {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+}
+
+.nav .nav-item input {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.nav .nav-item input:checked+a {
+    background-color: crimson;
+    color: #fff;
+}
+
+
+/* 提示元素  hint */
+
+.hint {
+    position: fixed;
+    top: 20%;
+    padding: 0 12px;
+    border: 2px #666 solid;
+    border-radius: 5px;
+    left: calc(50% + 140px);
+    margin: -40px 0 0 -40px;
+    transition-duration: 300ms;
+    z-index: 99;
+    opacity: 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .3);
+}
+
+.successhint {
+    opacity: 1;
+    color: deepskyblue;
+    border-color: deepskyblue;
+}
+
+.errorhint {
+    opacity: 1;
+    color: red;
+    border-color: red;
+}
